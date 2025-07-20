@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  moneytracker:
+    build: .
+    container_name: moneytracker
+    working_dir: /app
+    volumes:
+      - .:/app                      # Mount local project files for live development
+      - ./data:/app/data            # Mount data folder to persist SQLite/PDF files
+    command: python main.py --help  # Default command (can be overridden)
+    tty: true                       # Keep terminal open (for interactive use)

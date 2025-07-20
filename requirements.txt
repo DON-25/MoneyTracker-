@@ -1,0 +1,5 @@
+click
+matplotlib
+rich
+pytest
+fpdf
