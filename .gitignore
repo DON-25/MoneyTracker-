@@ -57,3 +57,8 @@ dist/
 .pyright/
 .pyre/
 *.lint
+
+# Ignore plot-generated PDF files
+plot/*.pdf
+reports/plot/*.pdf
+plot/*.png
