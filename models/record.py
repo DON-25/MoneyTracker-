@@ -102,3 +102,41 @@ class RecordModel:
             """, {"id": record_id, "user_id": user_id})
             conn.commit()
             return cursor.rowcount > 0
+        
+    # --- The following methods are for compatibility with test calls ---
+
+    def create(self, record: Record) -> int:
+        """For testing compatibility: same as add_record"""
+        return self.add_record(record)
+
+    def read(self, record_id: int, user_id: str) -> Optional[Record]:
+        """For testing compatibility: same as get_record"""
+        return self.get_record(record_id, user_id)
+
+    def read_all(self, user_id: str, start_date: str = None, end_date: str = None) -> List[Record]:
+        """For testing compatibility: same as get_all_records"""
+        return self.get_all_records(user_id, start_date, end_date)
+
+    def delete(self, record_id: int, user_id: str) -> bool:
+        """For testing compatibility: same as delete_record"""
+        return self.delete_record(record_id, user_id)
+
+    def update(self, record_id: int, record: Record, user_id: str) -> bool:
+        """For testing compatibility: updates a record"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE transactions
+                SET amount = :amount, type = :type, category = :category, date = :date
+                WHERE id = :id AND user_id = :user_id
+            """, {
+                "amount": record.amount,
+                "type": record.type,
+                "category": record.category,
+                "date": record.date,
+                "id": record_id,
+                "user_id": user_id
+            })
+            conn.commit()
+            return cursor.rowcount > 0
+

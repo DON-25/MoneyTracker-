@@ -21,6 +21,11 @@ class TransactionModel:
         self.db_name = db_name
         self._ensure_table()
 
+    def initialize(self):
+        """初始化数据库结构（用于测试或重建表结构）"""
+        from models.database import init_database
+        init_database(self.db_name)
+
     def _ensure_table(self):
         """Ensure the transactions table exists."""
         try:
@@ -136,7 +141,6 @@ class TransactionModel:
         except sqlite3.Error as e:
             logger.error(f"Error deleting transaction: {e}")
             raise
-            
 
-
-                  
+    def create(self, transaction: Transaction) -> int:
+        return self.add_transaction(transaction)

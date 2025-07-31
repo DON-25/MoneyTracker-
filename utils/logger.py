@@ -10,8 +10,8 @@ def setup_logger():
         os.makedirs(log_dir)
 
     #Create a logger   
-    logger= logging.getlogger("MoneyTracker")
-    logger.setlevel(logging.DEBUG)
+    logger= logging.getLogger("MoneyTracker")
+    logger.setLevel(logging.DEBUG)
 
     #Create file handler with timestamped log file
     log_file = os.path.join(log_dir, f"moneytracker_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
