@@ -11,6 +11,9 @@ def setup_logger():
 
     #Create a logger   
     logger= logging.getLogger("MoneyTracker")
+    if logger.hasHandlers():
+        return logger
+        
     logger.setLevel(logging.DEBUG)
 
     #Create file handler with timestamped log file
